@@ -15,6 +15,7 @@ stage('Docker Build') {
                   
           }
         }
+     
       stage('Run Docker container on Jenkins Agent') {
              
             steps 
@@ -23,3 +24,5 @@ stage('Docker Build') {
  
             }
         }
+    }
+ }
