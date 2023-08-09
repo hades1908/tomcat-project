@@ -2,7 +2,7 @@ version: '3'
 
 services:
   tomcat:
-    image: hades1908/my-tomcat:latest
-    container_name: my-tomcat-container
+    image: hades1908/my-tomcat:test_09082023
+    container_name: my-tomcat-container-test_09082023
     ports:
-      - "8004:8080"
+      - "8010:8080"
