@@ -1,5 +1,14 @@
 pipeline {
     agent any
+	
+	environment {
+        REMOTE_HOST = '172.31.42.129'
+        REMOTE_USER = 'ec2-user'
+        REMOTE_KEY = '/var/lib/jenkins/ec2-key/tomcat-target-server-key.pem'
+        GITHUB_REPO = 'https://github.com/hades1908/tomcat-project.git'
+        COMPOSE_FILE = 'docker-compose.yml'
+    }
+	
     stages {
        stage('Checkout from Git') {
             steps {
@@ -24,5 +33,17 @@ pipeline {
                }
             }
           }
+
+		stage('Deploy with Docker Compose') {
+            steps {
+                script {
+				    dir('/var/lib/jenkins/tomcat-project') {
+                    sh "git fetch ${GITHUB_REPO}"
+                    sh "scp -i ${REMOTE_KEY} /var/lib/jenkins/tomcat-project/${COMPOSE_FILE} ${REMOTE_USER}@${REMOTE_HOST}:${COMPOSE_FILE}"
+                    sh "ssh -i ${REMOTE_KEY} ${REMOTE_USER}@${REMOTE_HOST} 'docker compose -f ${COMPOSE_FILE} up -d'"
+				}
+			  }
+           }
         }
-      }
+    }
+}
