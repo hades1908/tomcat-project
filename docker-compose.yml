@@ -5,4 +5,4 @@ services:
     image: hades1908/my-tomcat:main_09082023
     container_name: my-tomcat-container
     ports:
-      - "8010:8080"
+      - "8020:8080"
