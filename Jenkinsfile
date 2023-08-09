@@ -19,7 +19,7 @@ pipeline {
            steps {
               
                 sh 'docker build . -t my-tomcat' 
-                sh 'docker tag my-tomcat hades1908/my-tomcat:latest'
+                sh 'docker tag my-tomcat hades1908/my-tomcat:main_09082023'
           }
         }
      
@@ -28,7 +28,7 @@ pipeline {
                script{
                    withDockerRegistry(credentialsId: 'docker-hub-credentials') {
  
-                       sh  'docker push hades1908/my-tomcat:latest'
+                       sh  'docker push hades1908/my-tomcat:main_09082023'
                    }
                }
             }
