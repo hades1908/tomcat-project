@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
 				    dir('/var/lib/jenkins/tomcat-project') {
-                    sh "git fetch ${GITHUB_REPO}"
+                    sh "git clone ${GITHUB_REPO}"
                     sh "scp -i ${REMOTE_KEY} /var/lib/jenkins/tomcat-project/${COMPOSE_FILE} ${REMOTE_USER}@${REMOTE_HOST}:${COMPOSE_FILE}"
                     sh "ssh -i ${REMOTE_KEY} ${REMOTE_USER}@${REMOTE_HOST} 'docker compose -f ${COMPOSE_FILE} up -d'"
                     sh "rm -rf /var/lib/jenkins/tomcat-project/tomcat-project"
